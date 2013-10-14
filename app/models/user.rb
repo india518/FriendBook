@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 	CRAZY_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
 
-  attr_accessible :email, :first_name, :last_name, :password, :confirm_password
+  attr_accessible :email, :first_name, :last_name, :password,
+  								:password_confirmation
   has_many :friendships
   has_many :friends, :through => :friendships, :class_name => "User", :foreign_key => "friend_id"
 
