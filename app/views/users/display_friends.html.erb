@@ -1,0 +1,31 @@
+<% content_for :title do %>
+	Friends
+<% end %>
+
+<div class="navbar">
+  <div class="navbar-inner">
+  	<a class="brand" href="#">Welcome, <%= current_user.first_name %></a>
+    <ul class="nav pull-right">
+      <li class="divider-vertical"></li>
+      <li><%= link_to "Log Out", logout_url, :method => :delete %></li>
+    </ul>
+  </div>
+</div>
+
+<table class="table table-bordered table-condensed margin10">
+	<caption class="text-left">List of Friends:</caption>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @friends.each do |friend| %>
+			<tr>
+				<td><%= friend.name %></td>
+				<td><%= friend.email %></td>
+			</tr>
+		<% end %><!-- end @friends.each -->
+	</tbody>
+</table>
