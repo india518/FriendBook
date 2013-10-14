@@ -7,6 +7,12 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'rails-footnotes', '>= 3.7.9'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,18 +27,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'simple_form'
+gem 'bootstrap-sass', '~> 2.3.2.1'
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
+gem 'hirb', '~> 0.7.1'
