@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
 		#query to get list of people you have recieved invites from
 	end
 
+	def accepted_friends
+		self.friends.where("friendships.friends = 't'")	#better way?
+	end
+
 end
