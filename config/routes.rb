@@ -6,8 +6,11 @@ FriendBook::Application.routes.draw do
   post "/login", :to => 'sessions#create'
   delete "/logout", :to => 'sessions#destroy'
 
-  resources :users, :only => :show
-  get "/users/:id/friends", :to => 'users#display_friends'
+  #resources :users, :only => :show
+
+  resources :users, :only => :show do
+  	get 'friends'
+  end
 
   root :to => 'sessions#new'
 end

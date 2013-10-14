@@ -11,3 +11,7 @@
     </ul>
   </div>
 </div>
+
+<%# if current_user.accepted_friends.count > 0 %>
+<h4>You have <%= link_to "#{current_user.accepted_friends.count} friends", user_friends_url(current_user) %></h2>
+<%# end %>

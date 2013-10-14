@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
-	def display_friends
+	def friends
 		if signed_in?
-			@user = User.find(params[:id])
+			@user = User.find(params[:user_id])
 			deny_access_to_restricted_info unless current_user?(@user)
 			@friends = @user.accepted_friends
 		else
