@@ -1,0 +1,18 @@
+<% content_for :title do %>
+	Welcome!
+<% end %>
+
+<div id="login_wrapper">
+	<%= simple_form_for :session,
+											:url => login_url,
+											:html => { :class => "span3" } do |f| %>
+		<h2>Login</h2>
+		<%= f.input :email, :label => false,
+												:placeholder => 'Email Address' %>
+		<%= f.input :password,	:label => false,
+														:placeholder => 'Enter a password' %>
+		<%= f.submit 'Login!', :class => "btn btn-primary" %>
+		<p class="text-left top_margin10 no_bottom_spacing">Don't have an account?</p>
+		<p class="text-left"><%= link_to "Register", register_url %> today!</p>
+	<% end %>
+</div>

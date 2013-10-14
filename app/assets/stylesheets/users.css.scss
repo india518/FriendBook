@@ -1,3 +1,25 @@
-// Place all the styles related to the Users controller here.
+// Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+.border-silver {
+	border: 1px solid silver;
+}
+
+.margin10 {
+	margin: 10px;
+}
+
+.padding10 {
+	padding: 10px;
+}
+
+.top_margin10 {
+	margin-top: 10px;
+}
+
+.no_bottom_spacing {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
