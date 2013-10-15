@@ -12,5 +12,7 @@ FriendBook::Application.routes.draw do
   	get 'friends'
   end
 
+  resources :friendships
+
   root :to => 'sessions#new'
 end

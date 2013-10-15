@@ -3,6 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
 
+td {
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+form {
+	margin: 0px;
+}
+.hidden {
+	margin: 0px;
+}
 .border-silver {
 	border: 1px solid silver;
 }

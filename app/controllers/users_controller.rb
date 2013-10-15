@@ -17,7 +17,8 @@ class UsersController < ApplicationController
 			@users = User.where("id != ?", current_user.id)
 			@invites_recieved = current_user.invites_recieved
 			@invites_sent = current_user.invites_sent
-			@accepted_friends = current_user.accepted_friends
+			@friends = current_user.accepted_friends
+			@friendship = Friendship.new
 		else
 			deny_access
 		end
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
 		@user = User.new(params[:user])
 		if @user.save
 			sign_in @user
-			redirect_to user_url(@user), :notice => "#{@user.name} Registered!"
+			redirect_to user_url(@user)
 		else
 			render :new
 		end

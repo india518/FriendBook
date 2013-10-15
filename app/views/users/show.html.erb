@@ -19,32 +19,39 @@
 <% if @invites_recieved.count > 0 %>
 	<table class="table table-bordered table-condensed margin10">
 		<caption class="text-left">Notifications:</caption>
-		<!-- <thead></thead> -->
 		<tbody>
 			<% @invites_recieved.each do |recieved| %>
 				<tr>
 					<td><span class="text_bold"><%= recieved.name %></span> wants to be your friend</td>
-					<td><%= link_to "Accept" %></td>
-					<td><%= link_to "Ignore" %></td>
+					<td><%= simple_form_for @friendship,
+										:url => friendship_url(recieved.id),
+										:method => :put do |f| %>
+								<%= f.input :friend_id, :as => :hidden,
+													:input_html => { :value => recieved.id } %>
+								<%= f.submit 'Accept', :class => "btn btn-link invite-link-action" %>
+							<% end %>
+					</td>
+					<td><%= link_to "Ignore", friendship_url(recieved.id),
+									:method => :delete, :class => "btn btn-link invite-link-action" %>
+					</td>
 				</tr>
 			<% end %><!-- end @invites_recieved.each -->
 		</tbody>
 	</table>
 <% end %>
 
-<% if @invites_sent.count > 0 %>
+<!-- <%# if @invites_sent.count > 0 %>
 	<table class="table table-bordered table-condensed margin10">
 		<caption class="text-left">Invited:</caption>
-		<!-- <thead></thead> -->
 		<tbody>
-			<% @invites_sent.each do |sent| %>
+			<%# @invites_sent.each do |sent| %>
 				<tr>
-					<td><span class="text_bold">You've invited <%= sent.name %></span> to be your friend</td>
+					<td>You've invited <span class="text_bold"><%#= sent.name %></span> to be your friend</td>
 				</tr>
-			<% end %><!-- end @invites_sent.each -->
+			<%# end %>
 		</tbody>
 	</table>
-<% end %>
+<%# end %> -->
 
 <table class="table table-bordered table-condensed margin10">
 	<caption class="text-left">People you may want to add as a friend:</caption>
@@ -57,14 +64,20 @@
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
-			<% unless @invites_recieved.include?(user) || @accepted_friends.include?(user) %>
+			<% unless @invites_recieved.include?(user) || @friends.include?(user) %>
 				<tr>
 					<td><%= user.name %></td>
 					<td><%= user.email %></td>
 					<% if @invites_sent.include?(user) %>
 						<td>Invitation Sent!</td>
 					<% else %>
-						<td>Total Stranger</th>
+						<td>
+							<%= simple_form_for @friendship, :url => friendships_url do |f| %>
+								<%= f.input :friend_id, :as => :hidden,
+														:input_html => { :value => user.id } %>
+								<%= f.submit 'Add Friend', :class => "btn btn-small" %>
+							<% end %>
+						</td>
 					<% end %>
 				</tr>
 			<% end %>
