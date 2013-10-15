@@ -11,15 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014042140) do
+ActiveRecord::Schema.define(:version => 20131014204037) do
 
   create_table "friendships", :force => true do |t|
-    t.boolean  "invited"
-    t.boolean  "friends"
     t.integer  "user_id"
     t.integer  "friend_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "status"
   end
 
   add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"

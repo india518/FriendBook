@@ -24,14 +24,15 @@ class User < ActiveRecord::Base
 
 	def invites_sent
 		#query to get list of people you have invited
+		self.friends.where("friendships.status" => false)
 	end
 
 	def invites_recieved
-		#query to get list of people you have recieved invites from
+		self.friends.where("friendships.status" => nil)
 	end
 
 	def accepted_friends
-		self.friends.where("friendships.friends = 't'")	#better way?
+		self.friends.where("friendships.status" => true)	#better way?
 	end
 
 end

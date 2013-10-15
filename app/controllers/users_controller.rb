@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 		if signed_in?
 			@user = User.find(params[:user_id])
 			deny_access_to_restricted_info unless current_user?(@user)
-			@friends = @user.accepted_friends
+			@friends = current_user.accepted_friends
 		else
 			deny_access
 		end
@@ -14,11 +14,10 @@ class UsersController < ApplicationController
 		if signed_in?
 			@user = User.find(params[:id])
 			deny_access_to_restricted_info unless current_user?(@user)
-			#@invites = @user.invites_recieved
-			#@users = query needed for users that:
-			#  				 - are NOT friends
-			# 				 - have NOT already invited us
-			#  				 - should include those we may have already invited
+			@users = User.where("id != ?", current_user.id)
+			@invites_recieved = current_user.invites_recieved
+			@invites_sent = current_user.invites_sent
+			@accepted_friends = current_user.accepted_friends
 		else
 			deny_access
 		end

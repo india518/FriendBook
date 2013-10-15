@@ -12,6 +12,62 @@
   </div>
 </div>
 
-<%# if current_user.accepted_friends.count > 0 %>
+<% if current_user.accepted_friends.count > 0 %>
 <h4>You have <%= link_to "#{current_user.accepted_friends.count} friends", user_friends_url(current_user) %></h2>
-<%# end %>
+<% end %>
+
+<% if @invites_recieved.count > 0 %>
+	<table class="table table-bordered table-condensed margin10">
+		<caption class="text-left">Notifications:</caption>
+		<!-- <thead></thead> -->
+		<tbody>
+			<% @invites_recieved.each do |recieved| %>
+				<tr>
+					<td><span class="text_bold"><%= recieved.name %></span> wants to be your friend</td>
+					<td><%= link_to "Accept" %></td>
+					<td><%= link_to "Ignore" %></td>
+				</tr>
+			<% end %><!-- end @invites_recieved.each -->
+		</tbody>
+	</table>
+<% end %>
+
+<% if @invites_sent.count > 0 %>
+	<table class="table table-bordered table-condensed margin10">
+		<caption class="text-left">Invited:</caption>
+		<!-- <thead></thead> -->
+		<tbody>
+			<% @invites_sent.each do |sent| %>
+				<tr>
+					<td><span class="text_bold">You've invited <%= sent.name %></span> to be your friend</td>
+				</tr>
+			<% end %><!-- end @invites_sent.each -->
+		</tbody>
+	</table>
+<% end %>
+
+<table class="table table-bordered table-condensed margin10">
+	<caption class="text-left">People you may want to add as a friend:</caption>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<% unless @invites_recieved.include?(user) || @accepted_friends.include?(user) %>
+				<tr>
+					<td><%= user.name %></td>
+					<td><%= user.email %></td>
+					<% if @invites_sent.include?(user) %>
+						<td>Invitation Sent!</td>
+					<% else %>
+						<td>Total Stranger</th>
+					<% end %>
+				</tr>
+			<% end %>
+		<% end %><!-- end @user.invites_recieved.each -->
+	</tbody>
+</table>
