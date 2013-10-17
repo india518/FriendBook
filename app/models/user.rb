@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :password,
   								:password_confirmation
   has_many :friendships
-  has_many :friends, :through => :friendships, :class_name => "User", :foreign_key => "friend_id"
+  has_many :friends, :through => :friendships, :foreign_key => "friend_id"
 
   validates :first_name,	:last_name,	:presence		=> true,
 																			:length			=> { :within => 1..50 }

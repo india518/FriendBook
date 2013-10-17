@@ -26,8 +26,6 @@
 					<td><%= simple_form_for @friendship,
 										:url => friendship_url(recieved.id),
 										:method => :put do |f| %>
-								<%= f.input :friend_id, :as => :hidden,
-													:input_html => { :value => recieved.id } %>
 								<%= f.submit 'Accept', :class => "btn btn-link invite-link-action" %>
 							<% end %>
 					</td>
