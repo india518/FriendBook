@@ -28,10 +28,15 @@ class FriendshipsController < ApplicationController
 	def update
 		#invitation has been accepted!
 		#now we set both 'friendships' to true
-		@friendship = Friendship.find_by_user_id(params[:id])
-		@reciprocal = Friendship.find_by_friend_id(params[:id])
+		#using the *.where clause returns a collection, evne if there is only one
+		# result, so we have to use *.first to get to the object itself!
+		@friendship =
+			Friendship.where(user_id: params[:id], friend_id: current_user).first
+		@reciprocal =
+			Friendship.where(user_id: current_user, friend_id: params[:id]).first
 		@friendship.status = true
 		@reciprocal.status = true
+
 		if @friendship.save && @reciprocal.save
 			redirect_to user_url(current_user), 
 				:flash => { :notice => "Friendship accepted!" }
@@ -45,8 +50,10 @@ class FriendshipsController < ApplicationController
 
 	def destroy
 		user = User.find(params[:id])
-		@friendship = Friendship.find_by_user_id(params[:id])
-		@reciprocal = Friendship.find_by_friend_id(params[:id])
+		@friendship =
+			Friendship.where(user_id: params[:id], friend_id: current_user).first
+		@reciprocal =
+			Friendship.where(user_id: current_user, friend_id: params[:id]).first
 		@friendship.destroy
 		@reciprocal.destroy
 		redirect_to user_url(current_user),
