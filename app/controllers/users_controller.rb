@@ -2,8 +2,7 @@ class UsersController < ApplicationController
 
 	def friends
 		if signed_in?
-			@user = User.find(params[:user_id])
-			deny_access_to_restricted_info unless current_user?(@user)
+			deny_restricted_info unless current_user? User.find(params[:user_id])
 			@friends = current_user.accepted_friends
 		else
 			deny_access
@@ -12,12 +11,13 @@ class UsersController < ApplicationController
 
 	def show
 		if signed_in?
-			@user = User.find(params[:id])
-			deny_access_to_restricted_info unless current_user?(@user)
+			deny_restricted_info unless current_user? User.find(params[:id])
+			# fetching here to cut down database queries on the show template
 			@users = User.where("id != ?", current_user.id)
 			@invites_recieved = current_user.invites_recieved
 			@invites_sent = current_user.invites_sent
 			@friends = current_user.accepted_friends
+			#and this last is for the forms to 'accept' a friendship
 			@friendship = Friendship.new
 		else
 			deny_access

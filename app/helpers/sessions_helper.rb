@@ -32,7 +32,7 @@ module SessionsHelper
     redirect_to login_path, :alert => "Please sign in to access that page."
   end
 
-  def deny_access_to_restricted_info
+  def deny_restricted_info
     #No matter what the bad user is doing, redirect to their dashboard:
     redirect_to user_url(current_user),
                 :alert => "You do not have the authority to access that page!"

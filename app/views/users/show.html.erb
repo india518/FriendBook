@@ -12,8 +12,8 @@
   </div>
 </div>
 
-<% if current_user.accepted_friends.count > 0 %>
-<h4>You have <%= link_to "#{current_user.accepted_friends.count} friends", user_friends_url(current_user) %></h2>
+<% unless @friends.empty? %>
+<h4>You have <%= link_to "#{@friends.count} friends", user_friends_url(current_user) %></h2>
 <% end %>
 
 <% if @invites_recieved.count > 0 %>
@@ -38,19 +38,6 @@
 	</table>
 <% end %>
 
-<!-- <%# if @invites_sent.count > 0 %>
-	<table class="table table-bordered table-condensed margin10">
-		<caption class="text-left">Invited:</caption>
-		<tbody>
-			<%# @invites_sent.each do |sent| %>
-				<tr>
-					<td>You've invited <span class="text_bold"><%#= sent.name %></span> to be your friend</td>
-				</tr>
-			<%# end %>
-		</tbody>
-	</table>
-<%# end %> -->
-
 <table class="table table-bordered table-condensed margin10">
 	<caption class="text-left">People you may want to add as a friend:</caption>
 	<thead>
@@ -70,7 +57,7 @@
 						<td>Invitation Sent!</td>
 					<% else %>
 						<td>
-							<%= simple_form_for @friendship, :url => friendships_url do |f| %>
+							<%= simple_form_for @friendship do |f| %>
 								<%= f.input :friend_id, :as => :hidden,
 														:input_html => { :value => user.id } %>
 								<%= f.submit 'Add Friend', :class => "btn btn-small" %>

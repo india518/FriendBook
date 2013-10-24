@@ -22,17 +22,23 @@ class User < ActiveRecord::Base
 		"#{self.first_name} #{self.last_name}"
 	end
 
+	#should these be methods in Friendship??
+
 	def invites_sent
-		#query to get list of people you have invited
-		self.friends.where("friendships.status" => false)
+		#query to get list of Users that you have invited
+		self.friends.where(:friendships => {:status => 0})
 	end
 
 	def invites_recieved
-		self.friends.where("friendships.status" => nil)
+		#query to get list of Users that have invited you
+		#can't use self.friends, because in this case we are friend_id, not user_id
+		User.joins(:friendships)
+				.where(:friendships => {:friend_id => self, :status => 0} )
 	end
 
 	def accepted_friends
-		self.friends.where("friendships.status" => true)	#better way?
+		User.joins(:friendships)
+				.where('(friendships.user_id = ? OR friendships.friend_id = ?) AND friendships.status = 1', self, self)
 	end
 
 end
