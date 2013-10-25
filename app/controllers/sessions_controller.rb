@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 		user.try(:authenticate, params[:session][:password])
 		if user == false || user.nil?
 			redirect_to login_url,
-			:flash => { :alert => 'Incorrect email and/or password.' }
+			:flash => { :alert => 'Incorrect password.' }
 		else
 			sign_in user
 			redirect_to user_url(user)
