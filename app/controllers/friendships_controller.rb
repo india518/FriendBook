@@ -25,8 +25,8 @@ class FriendshipsController < ApplicationController
 
 	def update
 		#We accept! Find this 'friendship' and set the status to 1
-		#using the *.where clause returns a collection, evne if there is only one
-		# result, so we have to use *.first to get to the object itself!
+		#Using the *.where clause returns a collection, evne if there is only one
+		#result, so we have to use *.first to get to the object itself!
 		@friendship =
 			Friendship.where(:user_id => params[:id],
 											 :friend_id => current_user).first

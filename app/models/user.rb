@@ -37,8 +37,13 @@ class User < ActiveRecord::Base
 	end
 
 	def accepted_friends
-		User.joins(:friendships)
-				.where('(friendships.user_id = ? OR friendships.friend_id = ?) AND friendships.status = 1', self, self)
+		#friends because they have accepted our invitation
+		invited_friends = User.joins(:friendships)
+													.where(:friendships => 
+																	{:friend_id => self, :status => 1} )
+		#friends because we have accepted thier invitation
+		recieved_friends = self.friends.where(:friendships => {:status => 1})
+		invited_friends.concat(recieved_friends)
 	end
 
 end

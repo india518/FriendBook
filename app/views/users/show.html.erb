@@ -13,7 +13,7 @@
 </div>
 
 <% unless @friends.empty? %>
-<h4>You have <%= link_to "#{@friends.count} friends", user_friends_url(current_user) %></h2>
+<h4>You have <%= link_to "#{@friends.count} #{@friends.count == 1 ? 'friend' : 'friends'}", user_friends_url(current_user) %></h4>
 <% end %>
 
 <% if @invites_recieved.count > 0 %>
